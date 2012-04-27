@@ -14,3 +14,13 @@ FlowGame.createColumn = function(params) {
 
   return column;
 };
+
+FlowGame.createTask = function() {
+  var task = {};
+
+  task.isCompleted = function() {
+    return false;
+  };
+
+  return task;
+};
