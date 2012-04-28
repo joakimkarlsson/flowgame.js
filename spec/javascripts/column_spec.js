@@ -6,16 +6,16 @@ describe("Column", function() {
   });
 
   it("can receive a task if WIP is not reached", function() {
-    expect(column.canReceiveTask()).toBeTruthy();
+    expect(FlowGame.canColumnReceiveTask(column)).toBeTruthy();
   });
 
   describe("with WIP limit reached", function() {
     beforeEach(function() {
-      column.addTask({});
+      column = FlowGame.addTaskToColumn(FlowGame.createTask(), column);
     });
 
     it("cannot receive a task", function() {
-      expect(column.canReceiveTask()).toBeFalsy();
+      expect(FlowGame.canColumnReceiveTask(column)).toBeFalsy();
     });
   });
 });
