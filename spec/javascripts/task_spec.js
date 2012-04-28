@@ -6,10 +6,16 @@ describe("Task", function() {
   });
 
   it("is initially not completed", function() {
-    expect(task.isCompleted()).toBeFalsy();
+    expect(FlowGame.isTaskComplete(task)).toBeFalsy();
   });
 
   it("is marked completed when a person has done all work left on it", function() {
-    task = FlowGame.workOnTask(task, work
+    var alwaysCompletes = function(task) {
+      return task.size;
+    };
+
+    task = FlowGame.workOnTask(task, alwaysCompletes);
+
+    expect(FlowGame.isTaskComplete(task)).toBeTruthy();
   });
 });

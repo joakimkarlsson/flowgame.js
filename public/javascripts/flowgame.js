@@ -7,13 +7,18 @@ FlowGame.createColumn = function(params) {
   };
 };
 
-FlowGame.createTask = function() {
-  return {};
+FlowGame.createTask = function(params) {
+  var param = params || {};
+  return {
+    size: param.size || 10,
+    progress: param.progress || 0
+  };
 };
 
 FlowGame.workOnTask = function(task, calculateProgress) {
-  var progressMade = FlowGame.calculateProgress(task);
-  return FlowGame.createTask({size: task.size, progress: progressMade});
+  var workedOnTask = FlowGame.cloneTask(task);
+  workedOnTask.progress = calculateProgress(task);
+  return workedOnTask;
 };
 
 FlowGame.isTaskComplete = function(task) {
@@ -36,3 +41,9 @@ FlowGame.cloneColumn = function(column) {
   };
 };
 
+FlowGame.cloneTask = function(task) {
+  return {
+    size: task.size,
+    progress: task.progress
+  };
+};
