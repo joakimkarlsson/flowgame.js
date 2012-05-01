@@ -1,5 +1,5 @@
 var FlowGame = {};
-FlowGame.currentTaskId = 1;
+FlowGame.currentId = 1;
 
 FlowGame.createColumn = function(params) {
   return {
@@ -9,8 +9,8 @@ FlowGame.createColumn = function(params) {
 };
 
 FlowGame.nextTaskId = function() {
-  var id = FlowGame.currentTaskId;
-  FlowGame.currentTaskId++;
+  var id = FlowGame.currentId;
+  FlowGame.currentId++;
   return id;
 };
 
@@ -31,6 +31,21 @@ FlowGame.createBoard = function(params) {
 
   return {
     columns: param.columns
+  };
+};
+
+FlowGame.createPerson = function(params) {
+  var param = params || {};
+
+  return {
+    id: FlowGame.currentId++,
+    capacity: param.capacity || 1
+  };
+};
+
+FlowGame.calculateProgressOnTask = function(person) {
+  return function(task) {
+    return Math.min(task.progress + person.capacity, task.size);
   };
 };
 
