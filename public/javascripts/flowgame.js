@@ -128,11 +128,14 @@ FlowGame.completedTasksInColumn = function(column) {
 FlowGame.removeTasksFromColumn = function(params) {
   var clone = FlowGame.cloneColumn(params.column);
 
-  var tasksLeft = clone.tasks.filter(function(task) {
+  var taskNotInArrayPredicate = function(task) {
     return !params.tasks.some(function(pred) {
       return pred.id === task.id;
     });
-  });
+  }
+
+  var tasksLeft = clone.tasks.filter(taskNotInArrayPredicate);
+
   clone.tasks = tasksLeft;
   return clone;
 };
