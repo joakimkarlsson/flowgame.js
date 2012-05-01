@@ -13,9 +13,12 @@ describe("Board", function() {
 
     beforeEach(function() {
       board = FlowGame.addTaskToBoard({ board: board, task: task, column: 0});
+      expect(board.columns[0].tasks).toContain(task);
+      expect(board.columns[1].tasks.length).toEqual(0);
     });
 
     it("should move the task to the second column when we update the board", function() {
+      debugger;
       board = FlowGame.moveCompletedTasksOnBoard(board);
       expect(board.columns[0].tasks.length).toEqual(0);
       expect(board.columns[1].tasks).toContain(task);
