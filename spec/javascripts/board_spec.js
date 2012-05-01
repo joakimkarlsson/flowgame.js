@@ -17,7 +17,7 @@ describe("Board", function() {
 
     it("should move the task to the second column when we update the board", function() {
       board = FlowGame.moveCompletedTasksOnBoard(board);
-      expect(board.columns[0].tasks).toBeEmpty();
+      expect(board.columns[0].tasks.length).toEqual(0);
       expect(board.columns[1].tasks).toContain(task);
     });
   });

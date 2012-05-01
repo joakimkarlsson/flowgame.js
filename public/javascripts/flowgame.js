@@ -1,4 +1,5 @@
 var FlowGame = {};
+FlowGame.currentTaskId = 1;
 
 FlowGame.createColumn = function(params) {
   return {
@@ -7,9 +8,16 @@ FlowGame.createColumn = function(params) {
   };
 };
 
+FlowGame.nextTaskId = function() {
+  var id = FlowGame.currentTaskId;
+  FlowGame.currentTaskId++;
+  return id;
+};
+
 FlowGame.createTask = function(params) {
   var param = params || {};
   return {
+    id: FlowGame.nextTaskId(),
     size: param.size || 10,
     progress: param.progress || 0
   };
@@ -69,7 +77,6 @@ FlowGame.changeColumnsOnBoard = function(params) {
 };
 
 FlowGame.addTaskToBoard = function(params) {
-  debugger;
   var column = FlowGame.addTaskToColumn(params.task, params.board.columns[params.column]);
   var columns = FlowGame.changeColumn({column: column, columns: params.board.columns, index: params.column});
   return FlowGame.changeColumnsOnBoard({board: params.board, columns: columns});
@@ -114,8 +121,29 @@ FlowGame.moveCompletedTasksForward = function(columns) {
 FlowGame.moveTasksBetweenColumns = function(sourceColumn, destinationColumn) {
     var tasksToMove = FlowGame.completedTasksInColumn(sourceColumn);
 
-    var updatedSourceColumn = FlowGame.removeTasksFromColumn(tasksToMove, sourceColumn);
-    var updatedDestinationColumn = FlowGame.addTasksToColumn(tasksToMove, destinationColumn);
+    var updatedSourceColumn = FlowGame.removeTasksFromColumn({tasks: tasksToMove, column: sourceColumn});
+    var updatedDestinationColumn = FlowGame.addTasksToColumn({tasks: tasksToMove, column: destinationColumn});
 
     return [updatedSourceColumn, updatedDestinationColumn];
+};
+
+FlowGame.completedTasksInColumn = function(column) {
+  return column.tasks.filter(FlowGame.isTaskComplete);
+};
+
+FlowGame.removeTasksFromColumn = function(params) {
+  var clone = FlowGame.cloneColumn(params.column);
+  var tasksLeft = clone.tasks.filter(function(task) {
+    return params.tasks.some(function(pred) {
+      return pred.id === task.id;
+    });
+  });
+  clone.tasks = tasksLeft;
+  return clone;
+};
+
+FlowGame.addTasksToColumn = function(params) {
+  var clone = FlowGame.cloneColumn(params.column);
+  clone.tasks = clone.tasks.concat(params.tasks);
+  return clone;
 };
