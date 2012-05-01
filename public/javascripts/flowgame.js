@@ -84,6 +84,7 @@ FlowGame.moveCompletedTasksOnBoard = function(board) {
 
 FlowGame.cloneColumn = function(column) {
   return {
+    wip: column.wip,
     tasks: column.tasks.slice()
   };
 };
@@ -113,7 +114,7 @@ FlowGame.moveCompletedTasksForward = function(columns) {
 };
 
 FlowGame.moveTasksBetweenColumns = function(sourceColumn, destinationColumn) {
-    var tasksToMove = FlowGame.completedTasksInColumn(sourceColumn);
+    var tasksToMove = FlowGame.completedTasksInColumn({ column: sourceColumn, number: FlowGame.capacityLeftInColumn(destinationColumn)});
 
     var updatedSourceColumn = FlowGame.removeTasksFromColumn({tasks: tasksToMove, column: sourceColumn});
     var updatedDestinationColumn = FlowGame.addTasksToColumn({tasks: tasksToMove, column: destinationColumn});
@@ -121,8 +122,15 @@ FlowGame.moveTasksBetweenColumns = function(sourceColumn, destinationColumn) {
     return [updatedSourceColumn, updatedDestinationColumn];
 };
 
-FlowGame.completedTasksInColumn = function(column) {
-  return column.tasks.filter(FlowGame.isTaskComplete);
+FlowGame.completedTasksInColumn = function(params) {
+  if(params.number === 0) {
+    return [];
+  }
+
+  var completedTasks = params.column.tasks.filter(FlowGame.isTaskComplete);
+  var limitedResult = completedTasks.slice(0, params.number);
+
+  return limitedResult;
 };
 
 FlowGame.removeTasksFromColumn = function(params) {
@@ -144,4 +152,8 @@ FlowGame.addTasksToColumn = function(params) {
   var clone = FlowGame.cloneColumn(params.column);
   clone.tasks = clone.tasks.concat(params.tasks);
   return clone;
+};
+
+FlowGame.capacityLeftInColumn = function(column) {
+  return column.wip - column.tasks.length;
 };
