@@ -172,3 +172,23 @@ FlowGame.addTasksToColumn = function(params) {
 FlowGame.capacityLeftInColumn = function(column) {
   return column.wip - column.tasks.length;
 };
+
+FlowGame.createAssignments = function() {
+  return [];
+};
+
+FlowGame.assignPersonToTask = function(params) {
+  return [{person: params.person, tasks: [params.task]}];
+};
+
+FlowGame.personsAssignedToTask = function(params) {
+  var validAssignments = params.assignments.filter(function(assignment) {
+    return assignment.tasks.some(function(task) {
+      return task.id === params.task.id;
+    });
+  });
+
+  return validAssignments.map(function(assignment) {
+    return assignment.person;
+  });
+};

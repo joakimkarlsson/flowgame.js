@@ -16,4 +16,21 @@ describe("Person", function() {
     var progress = FlowGame.calculateProgressOnTask(person)(task);
     expect(progress).toEqual(1);
   });
+
+  describe("assigning tasks", function() {
+    var firstTask;
+    var secondTask;
+    var assignments;
+
+    beforeEach(function() {
+      firstTask = FlowGame.createTask({size: 5});
+      secondTask = FlowGame.createTask({size: 3});
+      assignments = FlowGame.createAssignments();
+    });
+
+    it("can be assigned a task", function() {
+      assignments = FlowGame.assignPersonToTask({assignments: assignments, person: person, task: firstTask});
+      expect(FlowGame.personsAssignedToTask({assignments: assignments, task: firstTask})).toEqual([person]);
+    });
+  });
 });
