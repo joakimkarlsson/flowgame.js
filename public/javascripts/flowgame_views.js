@@ -20,19 +20,33 @@ FlowGame.views.addCardToColumn = function(params) {
 FlowGame.views.createCard = function(card) {
   return $('<div></div>')
     .addClass('card')
+    .attr('id', 'card-' + card.id)
     .append($('<div></div>')
         .addClass('cardTitle')
         .text(card.title))
     .append($('<progress></progress>')
         .addClass('cardProgress')
-        .attr('value', 0)
+        .attr('value', 2)
         .attr('max', card.size));
+};
+
+FlowGame.views.moveCard = function(params) {
+  var card = $('#card-' + params.cardId);
+
+  card.remove();
+
+  var column = $('#column-' + params.columnId);
+  column.append(card);
 };
 
 $(document).ready(function() {
   FlowGame.views.createColumns(5);
   var card = FlowGame.views.createCard({id:0, title: 'First Card', size: 5});
   FlowGame.views.addCardToColumn({columnId: 0, card: card});
+
+  $('#nextMenuItem').click(function() {
+    FlowGame.views.moveCard({cardId: 0, columnId: 1});
+  });
 });
 
 //    <div id="column-container">
