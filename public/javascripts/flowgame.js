@@ -178,17 +178,13 @@ FlowGame.createAssignments = function() {
 };
 
 FlowGame.assignPersonToTask = function(params) {
-  return [{person: params.person, tasks: [params.task]}];
+  return [{task: params.task, persons: [params.person]}];
 };
 
 FlowGame.personsAssignedToTask = function(params) {
-  var validAssignments = params.assignments.filter(function(assignment) {
-    return assignment.tasks.some(function(task) {
-      return task.id === params.task.id;
-    });
+  var matchingAssignment = params.assignments.filter(function(assignment) {
+    return assignment.task.id === params.task.id;
   });
 
-  return validAssignments.map(function(assignment) {
-    return assignment.person;
-  });
+  return matchingAssignment[0].persons;
 };
