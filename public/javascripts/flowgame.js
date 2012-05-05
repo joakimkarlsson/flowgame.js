@@ -51,7 +51,7 @@ FlowGame.calculateProgressOnTask = function(person) {
 
 FlowGame.workOnTask = function(task, calculateProgress) {
   var workedOnTask = FlowGame.cloneTask(task);
-  workedOnTask.progress = calculateProgress(task);
+  workedOnTask.progress = Math.min(calculateProgress(task), workedOnTask.size);
   return workedOnTask;
 };
 
