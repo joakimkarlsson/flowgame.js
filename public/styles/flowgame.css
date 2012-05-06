@@ -78,16 +78,21 @@ body {
   margin: 1px;
 }
 
+.progress-bars {
+  margin: 1px;
+}
+
 .progress-bar {
   margin-left: 2px;
   margin-right: 2px;
   clear: left;
+  height: 5px;
 }
 
 .progress-square {
   float: left;
   width: 10px;
-  height: 10px;
+  height: 100%;
   margin: 1px 0px 1px 0px;
 }
 
