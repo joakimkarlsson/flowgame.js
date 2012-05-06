@@ -19,9 +19,36 @@ body {
 }
 
 #persons {
-  width: 100%;
+  width: 133px;
   height: 50%;
   background-color: #eeeeff;
+}
+
+.person-information {
+  height: 35px;
+  width: 100%;
+}
+
+.person-information-data {
+  width: 98px;
+  height: 100%;
+  float: left;
+  margin-left: 2px;
+}
+
+.person-information-image img {
+  width: 25px;
+  height: 30px;
+  float: left;
+}
+
+.person-information-skills {
+  height: 5px;
+  float: left;
+}
+
+.person-information-skills-analyzing {
+  background-color: #BB2;
 }
 
 .column {
