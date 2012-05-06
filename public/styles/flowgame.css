@@ -44,11 +44,23 @@ body {
 
 .person-information-skills {
   height: 5px;
-  float: left;
+  margin-bottom: 2px;
 }
 
 .person-information-skills-analyzing {
   background-color: #BB2;
+}
+
+.person-information-skills-developing {
+  background-color: #2B2;
+}
+
+.person-information-skills-testing {
+  background-color: #22B;
+}
+
+.person-information-skills-deploying {
+  background-color: #B2B;
 }
 
 .column {
