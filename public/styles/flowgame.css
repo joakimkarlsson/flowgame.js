@@ -84,6 +84,29 @@ body {
   clear: left;
 }
 
-.progress-image {
+.progress-square {
   float: left;
+  width: 10px;
+  height: 10px;
+  margin: 1px 0px 1px 0px;
+}
+
+.progress-square-analyzing {
+  background-color: #BB2;
+}
+
+.progress-square-developing {
+  background-color: #2B2;
+}
+
+.progress-square-not-done {
+  background-color: #fefefe;
+}
+
+.progress-square-testing {
+  background-color: #22B;
+}
+
+.progress-square-deploying {
+  background-color: #B2B;
 }
