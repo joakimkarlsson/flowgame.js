@@ -121,13 +121,27 @@ body {
   margin: 1px;
 }
 
+.story-info-footer {
+  clear: left;
+  height: 40px;
+}
+
 .person-images {
-  width: 100%;
+  width: 85px;
   height: 35px;
   margin-left: 2px;
   margin-top: 5px;
   margin-bottom: 1px;
-  clear: left;
+  float: left;
+}
+
+.story-value {
+  float: left;
+  width: 38px;
+  font-size: 24px;
+  padding-top: 7px;
+  color: #666;
+  text-align: left;
 }
 
 .person-image img {
@@ -176,3 +190,4 @@ body {
 .progress-square-deploying {
   background-color: #B2B;
 }
+
